@@ -290,3 +290,26 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 	message: "Content of the categoria updated correctly" 
 }
 ```
+### Logear Usuarios
+
+#### Body format
+
+```javascript
+{
+  "user": "admin",
+	"password": "4321"
+}
+```
+
+```bash
+/POST "[domain-name]/api/v1/auth/login",
+```
+
+#### Response format
+
+```javascript
+{
+  user: "admin",
+	role: "admin"
+}
+```
