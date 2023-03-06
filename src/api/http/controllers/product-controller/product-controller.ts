@@ -152,7 +152,7 @@ export class ProductController
     try {
 			const products = await this._productService.getAllProducts({ full: true  });
 			const csv = this._csvConverter.fromArrToCSV(products as any[]);
-			const filename = "products-list"
+			const filename = "products-list.csv"
 			res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
 			res.setHeader('Content-type','text/csv')
       return res.send(csv);

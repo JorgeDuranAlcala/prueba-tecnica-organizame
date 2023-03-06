@@ -27,7 +27,12 @@ opcionalmente puedes crear un archivo .env en el cual agregar la variables de en
   API_VERSION=1
 ```
 
+### importante
+Las rutas cambiaran dependiendo si decidiste añadir el archivo .env, si no añadiste la variable API_VERSION en el .env, la ruta sera del siguiente modo por defecto:
 
+```bash
+[domain-name | http://localhost:4000]/api/vbeta/
+```
 
 ```bash
 npm install
@@ -90,6 +95,7 @@ El sku no se puede repetir ya que es unico, ningun dato puede estar vacio todos 
 {
   id: "g323hdsdb",
   product: Product
+}
 ```
 
 ### Obtener todos los productos
@@ -144,7 +150,7 @@ El sku no se puede repetir ya que es unico, ningun dato puede estar vacio todos 
 #### Response format
 
 ```javascript
-{
+body: {
   products: Product[]
 }
 ```
@@ -209,6 +215,7 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 {
   id: "g323hdsdb",
   categoria: Categoria
+}
 ```
 
 ### Obtener todas las categorias
