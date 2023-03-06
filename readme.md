@@ -88,10 +88,10 @@ El sku no se puede repetir ya que es unico, ningun dato puede estar vacio todos 
 ```javascript
  body: {
      nombre_producto: "Producto A",
-		 descripcion: "Desc producto A",
-		 precio: 33.33,
+     descripcion: "Desc producto A",
+     precio: 33.33,
      sku: "TOM1",
-		 categoria: "{IdCategoria}"
+     categoria: "{IdCategoria}"
   }
 ```
 
@@ -132,7 +132,7 @@ El sku no se puede repetir ya que es unico, ningun dato puede estar vacio todos 
 
 ```javascript
 {
-	id: "g3g4g44",
+  id: "g3g4g44",
   product: Product
 }
 ```
@@ -146,7 +146,7 @@ El sku no se puede repetir ya que es unico, ningun dato puede estar vacio todos 
 
 ```javascript
 {
-	id: "g3g4g44",
+  id: "g3g4g44",
   removed: boolean
 }
 ```
@@ -184,7 +184,7 @@ body: {
 ```javascript
 {
   id: "d33d33",
-	message: "Content of the product updated correctly" 
+  message: "Content of the product updated correctly" 
 }
 ```
 
