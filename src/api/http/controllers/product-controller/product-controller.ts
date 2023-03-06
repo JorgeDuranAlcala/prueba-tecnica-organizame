@@ -88,9 +88,7 @@ export class ProductController
 				currValue ? {...acc, [currKey]: currValue} : acc
 			), {})
       await this._validator.validate(updateDto);
-			console.log(propsToUpdate)
       const updated = await this._productService.updateProduct(id, propsToUpdate);
-      console.log("updated xd", updated)
 			return this.ok(res, {
 				id,
         message: "Content of the product updated correctly",
@@ -153,12 +151,11 @@ export class ProductController
   ): Promise<void | Response> => {
     try {
 			const products = await this._productService.getAllProducts({ full: true  });
-			console.log(products)
 			const csv = this._csvConverter.fromArrToCSV(products as any[]);
 			const filename = "products-list"
 			res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
 			res.setHeader('Content-type','text/csv')
-      return res.send(products);
+      return res.send(csv);
     } catch (error) {
       if (!(error instanceof Error)) return;
       next(error);
