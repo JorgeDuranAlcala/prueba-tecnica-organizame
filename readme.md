@@ -21,6 +21,14 @@ debes tener instalado [node.js](https://nodejs.org/en/) para poder ejecutar el p
 
 ## Como correr el proyecto
 
+### clona el repositorio
+
+```bash
+  git clone https://github.com/JorgeDuranAlcala/prueba-tecnica-organizame.git
+```
+
+### variables de entorno (OPCIONAL)
+
 opcionalmente puedes crear un archivo .env en el cual agregar la variables de entorno como la version de la api
 
 ```bash
@@ -33,6 +41,8 @@ Las rutas cambiaran dependiendo si decidiste añadir el archivo .env, si no aña
 ```bash
 [domain-name | http://localhost:4000]/api/vbeta/
 ```
+
+### install dependencies
 
 ```bash
 npm install
@@ -200,8 +210,8 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 ```javascript
  body: {
      nombre_corto: "GRAL",
-		 descripcion: "Desc categoria Y",
-		 nombre_categoria: "Categoria Y"
+     descripcion: "Desc categoria Y",
+     nombre_categoria: "Categoria Y"
   }
 ```
 
@@ -242,7 +252,7 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 
 ```javascript
 {
-	id: "g3g4g44",
+  id: "g3g4g44",
   categoria: Categoria
 }
 ```
@@ -256,7 +266,7 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 
 ```javascript
 {
-	id: "g3g4g44",
+  id: "g3g4g44",
   removed: boolean
 }
 ```
@@ -294,7 +304,7 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 ```javascript
 {
   id: "d33d33",
-	message: "Content of the categoria updated correctly" 
+  message: "Content of the categoria updated correctly" 
 }
 ```
 ### Logear Usuarios
@@ -304,7 +314,7 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 ```javascript
 {
   "user": "admin",
-	"password": "4321"
+  "password": "4321"
 }
 ```
 
@@ -317,6 +327,6 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 ```javascript
 {
   user: "admin",
-	role: "admin"
+  role: "admin"
 }
 ```
