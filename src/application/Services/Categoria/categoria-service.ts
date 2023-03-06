@@ -9,7 +9,6 @@ import { GetAllCategoriasUseCase  } from "./Use-cases/GetAllCategorias";
 import { FindCategoriaUseCase  } from "./Use-cases/findCategoria";
 import { SearchCategoriasUseCase  } from "./Use-cases/searchCategoria";
 import { ICategoriaService  } from "@src/application/Services/Categoria/ICategoriaService"
-import { CategoriaProps } from "@src/domain/Categoria/categoria-props";
 
 export class CategoriaService implements ICategoriaService {
   private readonly _categoriaRepository: CategoriaRepository;

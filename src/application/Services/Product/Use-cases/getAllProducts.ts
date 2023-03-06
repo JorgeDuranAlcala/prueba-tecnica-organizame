@@ -28,7 +28,6 @@ private readonly _categoriaRepository: CategoriaRepository;
   async get(options?: Partial<GetAllProductOptions> ) {
     const products = await this._productRepository.findAll();
 		if (options?.full) {
-			console.log(products)
 			const products_with_categories = await Promise.all(
 				products.map(async (p) => { 	
 					const categoria = await this._categoriaRepository.findById(p.categoria)

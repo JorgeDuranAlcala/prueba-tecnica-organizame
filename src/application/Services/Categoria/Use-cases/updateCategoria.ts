@@ -2,7 +2,6 @@ import { UpdateCategoriaDto  } from "@src/domain/Categoria/dtos/updateCategoriaD
 import { CategoriaRepository } from "@src/infrastructure/categoriaRepository/ICategoriaRepo";
 import { CategoriaNotFound  } from "@src/libs/Error/categoria-not-found"
 import { Categoria } from "@src/domain/Categoria";
-import { CategoriaProps } from "@src/domain/Categoria/categoria-props";
 export class UpdateCategoriaUseCase {
   private readonly _categoriaRepository: CategoriaRepository;
 

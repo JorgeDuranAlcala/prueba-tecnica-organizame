@@ -3,7 +3,6 @@ import { IUserService  } from '../../src/application/Services/User/IUserService'
 import { UserRepository  } from '../../src/infrastructure/userRepository/IUserRepo'
 import { FakeUserRepo  } from '../../src/libs/helper/FakeUserRepo' 
 import { LoginUserDto  } from '../../src/domain/User/dtos/login-dto'
-import { ReturnUserDto  } from '../../src/domain/User/dtos/returnUser-dto'
 import { instanceToPlain  } from 'class-transformer'
 
 describe('User service', () => {
@@ -38,7 +37,6 @@ describe('User service', () => {
 		  await userService.login(loginUserDto);
 		 } catch(error) {
 			 if (!(error instanceof Error)) return;
-			 console.log(error)
        expect(error.message).toMatch(/user or password are invalid/i);
 		 }
 	 })

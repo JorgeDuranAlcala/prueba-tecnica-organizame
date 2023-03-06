@@ -166,7 +166,6 @@ describe("Product endpoints", () => {
 			const query = "a"
       const res = await request.get(`${base_url}/productSearch`).query({ q: query  });
       expect(res.statusCode).toEqual(HTTP_STATUS_CODE.OK);
-      console.log(res.body)
 			expect(res.body.products).toBeDefined();
 			expect(res.body.products.length).toBeGreaterThan(0)
     });

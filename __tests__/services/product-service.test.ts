@@ -219,7 +219,6 @@ describe("Product service", () => {
       const products = await productService.getAllProducts({ full: true  });
       expect(products).toBeDefined();
 			expect(products.length).toBeGreaterThanOrEqual(0)
-			console.log("products", products)
 			products.forEach((p: Record<string | number, any>) => {
 				expect(p.sku).toBeDefined();
 				expect(p.nombre_producto).toBeDefined();
