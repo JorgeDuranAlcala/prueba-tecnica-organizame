@@ -1,4 +1,3 @@
-
 import { Categoria } from "@src/domain/Categoria";
 import { CategoriaRepository } from "@src/infrastructure/categoriaRepository/ICategoriaRepo";
 
@@ -15,12 +14,11 @@ export class SearchCategoriasUseCase {
 
   async search(query: string): Promise<Categoria[]> {
     const cate = await this._categoriaRepository.findAll();
-    return cate.filter(c => (
-				c.nombre_categoria.includes(query) 
-					|| c.descripcion.includes(query) 
-					|| c.nombre_corto.includes(query)
-			)
-		);
+    return cate.filter(
+      (c) =>
+        c.nombre_categoria.includes(query) ||
+        c.descripcion.includes(query) ||
+        c.nombre_corto.includes(query)
+    );
   }
-
 }

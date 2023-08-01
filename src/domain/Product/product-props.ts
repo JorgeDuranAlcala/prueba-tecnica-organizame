@@ -3,6 +3,6 @@ export interface ProductProps {
   nombre_producto: string;
   descripcion: string;
   precio: number;
-	sku: string;
-	categoria: string
+  sku: string;
+  categoria: string;
 }

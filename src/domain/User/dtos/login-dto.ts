@@ -1,4 +1,3 @@
-
 import { Exclude, Expose } from "class-transformer";
 import { IsNotEmpty, IsString } from "class-validator";
 
@@ -14,28 +13,17 @@ export class LoginUserDto implements ILoginUserDto {
   @IsString()
   public user: string;
 
-	@Expose()
+  @Expose()
   @IsNotEmpty()
   @IsString()
   public password: string;
 
-	static create({
-		user,
-		password
-	}: ILoginUserDto) {
-    return new LoginUserDto(
-			user,
-			password
-		);
+  static create({ user, password }: ILoginUserDto) {
+    return new LoginUserDto(user, password);
   }
 
-  constructor(
-		user: string,
-		password: string
-	) {
+  constructor(user: string, password: string) {
     this.user = user;
-		this.password = password;
+    this.password = password;
   }
 }
-
-

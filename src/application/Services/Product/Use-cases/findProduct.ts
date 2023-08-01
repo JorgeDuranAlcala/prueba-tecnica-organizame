@@ -12,12 +12,12 @@ export class FindProductUseCase {
     return new FindProductUseCase(_productRepository);
   }
 
-  async find(
-		props: Record<string | number, any>
-  ): Promise<Product[]> {
-		const products = ( await this._productRepository.findAll() ).filter(x => {
-			return Object.entries(x.getProps()).some(([key, value]) => props[key] === value )
-		})
-    return products
+  async find(props: Record<string | number, any>): Promise<Product[]> {
+    const products = (await this._productRepository.findAll()).filter((x) => {
+      return Object.entries(x.getProps()).some(
+        ([key, value]) => props[key] === value
+      );
+    });
+    return products;
   }
 }

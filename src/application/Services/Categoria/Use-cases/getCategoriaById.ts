@@ -1,6 +1,6 @@
 import { Categoria } from "@src/domain/Categoria";
 import { CategoriaRepository } from "@src/infrastructure/categoriaRepository/ICategoriaRepo";
-import { CategoriaNotFound  } from "@src/libs/Error/categoria-not-found"
+import { CategoriaNotFound } from "@src/libs/Error/categoria-not-found";
 
 export class GetCategoriaByIdUseCase {
   private readonly _categoriaRepository: CategoriaRepository;
@@ -15,8 +15,7 @@ export class GetCategoriaByIdUseCase {
 
   async get(id: string): Promise<Categoria | undefined> {
     const cate = await this._categoriaRepository.findById(id);
-		if (!cate) throw new CategoriaNotFound(id);
+    if (!cate) throw new CategoriaNotFound(id);
     return cate;
   }
-
 }

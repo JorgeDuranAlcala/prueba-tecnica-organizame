@@ -1,5 +1,5 @@
 import { CategoriaRepository } from "@src/infrastructure/categoriaRepository/ICategoriaRepo";
-import { CategoriaNotFound  } from "@src/libs/Error/categoria-not-found"
+import { CategoriaNotFound } from "@src/libs/Error/categoria-not-found";
 
 export class RemoveCategoriaUseCase {
   private readonly _categoriaRepository: CategoriaRepository;
@@ -14,8 +14,7 @@ export class RemoveCategoriaUseCase {
 
   async remove(id: string): Promise<boolean> {
     const cate = await this._categoriaRepository.remove(id);
-		if (!cate) throw new CategoriaNotFound(id);
+    if (!cate) throw new CategoriaNotFound(id);
     return cate;
   }
-
 }

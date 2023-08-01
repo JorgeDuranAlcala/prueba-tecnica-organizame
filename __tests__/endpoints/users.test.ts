@@ -16,45 +16,40 @@ describe("users endpoints", () => {
   });
 
   describe("/POST /login", () => {
-		test("should login an user", async () => {
-			const body = {
+    test("should login an user", async () => {
+      const body = {
         user: "user",
-				password: "1234"
-			}
-		
-			const res = await request.post(`${base_url}/auth/login`).send(body);
-			expect(res.statusCode).toEqual(HTTP_STATUS_CODE.OK)
-			expect(res.body).toBeDefined()
-			expect(res.body.user.user).toEqual(body.user)
-			expect(res.body.user.role).toEqual("user")
-			expect(res.body.user.role).not.toEqual("admin")
-		})
+        password: "1234",
+      };
 
-		test("should login an admin", async () => {
-			const body = {
+      const res = await request.post(`${base_url}/auth/login`).send(body);
+      expect(res.statusCode).toEqual(HTTP_STATUS_CODE.OK);
+      expect(res.body).toBeDefined();
+      expect(res.body.user.user).toEqual(body.user);
+      expect(res.body.user.role).toEqual("user");
+      expect(res.body.user.role).not.toEqual("admin");
+    });
+
+    test("should login an admin", async () => {
+      const body = {
         user: "admin",
-				password: "4321"
-			}
-			const res = await request.post(`${base_url}/auth/login`).send(body);
-			expect(res.statusCode).toEqual(HTTP_STATUS_CODE.OK)
-			expect(res.body).toBeDefined()
-			expect(res.body.user.user).toEqual(body.user)
-			expect(res.body.user.role).not.toEqual("user")
-			expect(res.body.user.role).toEqual("admin")
-		})
+        password: "4321",
+      };
+      const res = await request.post(`${base_url}/auth/login`).send(body);
+      expect(res.statusCode).toEqual(HTTP_STATUS_CODE.OK);
+      expect(res.body).toBeDefined();
+      expect(res.body.user.user).toEqual(body.user);
+      expect(res.body.user.role).not.toEqual("user");
+      expect(res.body.user.role).toEqual("admin");
+    });
 
-		test("should return Unauthorized error when bad credentials are provided", async () => {
-			const body = {
+    test("should return Unauthorized error when bad credentials are provided", async () => {
+      const body = {
         user: "admin",
-				password: "4325"
-			}
-			const res = await request.post(`${base_url}/auth/login`).send(body);
-			expect(res.statusCode).toEqual(HTTP_STATUS_CODE.UNAUTHORIZED)
-		})
-
-  })
-
-
-
-})
-
+        password: "4325",
+      };
+      const res = await request.post(`${base_url}/auth/login`).send(body);
+      expect(res.statusCode).toEqual(HTTP_STATUS_CODE.UNAUTHORIZED);
+    });
+  });
+});

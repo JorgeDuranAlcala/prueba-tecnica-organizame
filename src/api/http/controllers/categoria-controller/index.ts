@@ -6,6 +6,6 @@ const validator = new Validator();
 
 const my_categoriaController = new CategoriaController(
   categoriaService,
-  validator,
+  validator
 );
 export { my_categoriaController };

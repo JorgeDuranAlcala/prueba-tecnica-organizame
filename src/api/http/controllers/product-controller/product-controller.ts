@@ -2,12 +2,12 @@ import { IProductService } from "@src/application/Services/Product/IProductServi
 import { CreateProductDto } from "@src/domain/Product/dtos/createProductDTO";
 import { UpdateProductDto } from "@src/domain/Product/dtos/updateProductDTO";
 import { IValidator } from "@src/libs/Validator/IValidator";
-import { ICsvConverter  } from "@src/libs/csv-converter/ICsvConverter"
+import { ICsvConverter } from "@src/libs/csv-converter/ICsvConverter";
 import { NextFunction, Request, Response } from "express";
 import { BaseController } from "../base-controller";
 import { IProductController } from "./IProductController";
-import { RepeatedSkuError  } from '@src/libs/Error/RepeatedSku'
-import { MalformedDataError } from "@src/libs/Error/Malformed-data"
+import { RepeatedSkuError } from "@src/libs/Error/RepeatedSku";
+import { MalformedDataError } from "@src/libs/Error/Malformed-data";
 
 export class ProductController
   extends BaseController
@@ -15,17 +15,17 @@ export class ProductController
 {
   private readonly _productService: IProductService;
   private readonly _validator: IValidator;
-	private readonly _csvConverter: ICsvConverter;
+  private readonly _csvConverter: ICsvConverter;
 
   constructor(
     _productService: IProductService,
     _validator: IValidator,
-		_csvConverter: ICsvConverter
+    _csvConverter: ICsvConverter
   ) {
     super();
     this._validator = _validator;
     this._productService = _productService;
-		this._csvConverter = _csvConverter;
+    this._csvConverter = _csvConverter;
   }
 
   createNewProduct = async (
@@ -40,13 +40,16 @@ export class ProductController
       );
       await this._validator.validate(createDto);
       /* should throw error if sku is already taken */
-			const products = await this._productService.find({ sku: createDto.sku  })
+      const products = await this._productService.find({ sku: createDto.sku });
       if (products.length > 0) throw new RepeatedSkuError(createDto.sku);
 
       const new_product_data = await this._productService.createProduct(
         createDto
       );
-      return this.ok(res, { id: new_product_data.id, product: new_product_data.getProps() });
+      return this.ok(res, {
+        id: new_product_data.id,
+        product: new_product_data.getProps(),
+      });
     } catch (error) {
       if (!(error instanceof Error)) return;
       next(error);
@@ -61,7 +64,7 @@ export class ProductController
     try {
       const { id } = req.params;
       const product = await this._productService.getById(id);
-      return this.ok(res, { id, product  });
+      return this.ok(res, { id, product });
     } catch (error) {
       if (!(error instanceof Error)) return;
       next(error);
@@ -75,22 +78,29 @@ export class ProductController
   ): Promise<void | Response> => {
     try {
       const { id } = req.params;
-		  const updateDto = UpdateProductDto.create({ 
-				sku: req.body.sku,
-				descripcion: req.body.descripcion,
-				nombre_producto: req.body.nombre_producto,
-				precio: req.body.precio,
-				categoria: req.body.categoria
-			})
-      const allUndefined = Object.values(updateDto).every(x => !x);
-			if (allUndefined) throw MalformedDataError.create(); 
-			const propsToUpdate = Object.entries(updateDto).reduce<{[x: string]: unknown}>((acc,[currKey, currValue]) => (
-				currValue ? {...acc, [currKey]: currValue} : acc
-			), {})
+      const updateDto = UpdateProductDto.create({
+        sku: req.body.sku,
+        descripcion: req.body.descripcion,
+        nombre_producto: req.body.nombre_producto,
+        precio: req.body.precio,
+        categoria: req.body.categoria,
+      });
+      const allUndefined = Object.values(updateDto).every((x) => !x);
+      if (allUndefined) throw MalformedDataError.create();
+      const propsToUpdate = Object.entries(updateDto).reduce<{
+        [x: string]: unknown;
+      }>(
+        (acc, [currKey, currValue]) =>
+          currValue ? { ...acc, [currKey]: currValue } : acc,
+        {}
+      );
       await this._validator.validate(updateDto);
-      const updated = await this._productService.updateProduct(id, propsToUpdate);
-			return this.ok(res, {
-				id,
+      const updated = await this._productService.updateProduct(
+        id,
+        propsToUpdate
+      );
+      return this.ok(res, {
+        id,
         message: "Content of the product updated correctly",
       });
     } catch (error) {
@@ -114,21 +124,21 @@ export class ProductController
     }
   };
 
-	getProducts =  async (
+  getProducts = async (
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void | Response> => {
     try {
-      const products = await this._productService.getAllProducts();			
-      return this.ok(res, { products  });
+      const products = await this._productService.getAllProducts();
+      return this.ok(res, { products });
     } catch (error) {
       if (!(error instanceof Error)) return;
       next(error);
     }
   };
 
-	searchProducts = async (
+  searchProducts = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -142,24 +152,24 @@ export class ProductController
       next(error);
     }
   };
- 
- 
-	exportProducts = async (
+
+  exportProducts = async (
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void | Response> => {
     try {
-			const products = await this._productService.getAllProducts({ full: true  });
-			const csv = this._csvConverter.fromArrToCSV(products as any[]);
-			const filename = "products-list.csv"
-			res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
-			res.setHeader('Content-type','text/csv')
+      const products = await this._productService.getAllProducts({
+        full: true,
+      });
+      const csv = this._csvConverter.fromArrToCSV(products as any[]);
+      const filename = "products-list.csv";
+      res.setHeader("Content-Disposition", "attachment; filename=" + filename);
+      res.setHeader("Content-type", "text/csv");
       return res.send(csv);
     } catch (error) {
       if (!(error instanceof Error)) return;
       next(error);
     }
   };
-
 }

@@ -13,9 +13,7 @@ export class GetProductByIdUseCase {
     return new GetProductByIdUseCase(_productRepository);
   }
 
-  async get(
-    id: string
-  ): Promise<Product> {
+  async get(id: string): Promise<Product> {
     const product = await this._productRepository.findById(id);
     if (!product) throw new ProductNotFound(id);
     return product;

@@ -1,4 +1,4 @@
-import { inMemoryCategoriaRepo  } from "@src/infrastructure/categoriaRepository"
+import { inMemoryCategoriaRepo } from "@src/infrastructure/categoriaRepository";
 import { CategoriaService } from "./categoria-service";
 
 const categoriaRepo = inMemoryCategoriaRepo;

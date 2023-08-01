@@ -1,7 +1,7 @@
 import express, { Application } from "express";
 import { IErrorHandler } from "./middlewares/error-handler/IErrorHandler";
 import Compression from "compression";
-import helmet from 'helmet'
+import helmet from "helmet";
 import { createServer } from "http";
 import { HTTPRouter } from "./router/router";
 import dotenv from "dotenv";
@@ -45,7 +45,7 @@ export class ExpressApp implements IApp {
 
   private middlewares(): void {
     this._app.use(Compression());
-		this._app.use(helmet())
+    this._app.use(helmet());
     this._app.use(express.json({ limit: "5mb" }));
   }
 
@@ -53,7 +53,8 @@ export class ExpressApp implements IApp {
     const router = this._router.get();
     this._app.use(`/api/v${this._app.get("api-version")}`, router);
     this._app.use("*", this._errorHandler.NOT_FOUND_ROUTE_HANDLER);
-		if (process.env.NODE_ENV === "dev") this._app.use(this._errorHandler.logErrorMiddleware);
+    if (process.env.NODE_ENV === "dev")
+      this._app.use(this._errorHandler.logErrorMiddleware);
     this._app.use(this._errorHandler.returnError);
   }
 

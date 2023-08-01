@@ -12,9 +12,9 @@ export class InMemoryCategoriaRepo implements CategoriaRepository {
     return this._database.categorias.insert(product);
   }
 
-	async find(props: Partial<CategoriaProps>) {
-		return this._database.categorias.find(props)
-	}
+  async find(props: Partial<CategoriaProps>) {
+    return this._database.categorias.find(props);
+  }
 
   async findById(id: string): Promise<Categoria | undefined> {
     const found = this._database.categorias.getById(id);

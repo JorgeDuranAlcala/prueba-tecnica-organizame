@@ -12,9 +12,9 @@ export class InMemoryProductRepo implements ProductRepository {
     return this._database.products.insert(product);
   }
 
-	async find(props: Partial<ProductProps>) {
-		return this._database.products.find(props)
-	}
+  async find(props: Partial<ProductProps>) {
+    return this._database.products.find(props);
+  }
 
   async findById(id: string): Promise<Product | undefined> {
     const found = this._database.products.getById(id);

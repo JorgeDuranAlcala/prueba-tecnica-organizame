@@ -36,6 +36,7 @@ opcionalmente puedes crear un archivo .env en el cual agregar la variables de en
 ```
 
 ### importante
+
 Las rutas cambiaran dependiendo si decidiste añadir el archivo .env, si no añadiste la variable API_VERSION en el .env, la ruta sera del siguiente modo por defecto:
 
 ```bash
@@ -136,6 +137,7 @@ El sku no se puede repetir ya que es unico, ningun dato puede estar vacio todos 
   product: Product
 }
 ```
+
 ### Eliminar producto por su Id
 
 ```bash
@@ -171,7 +173,7 @@ body: {
 
 ```javascript
 body: {
-   nombre_producto: "Product AAA"
+  nombre_producto: "Product AAA";
 }
 ```
 
@@ -184,12 +186,11 @@ body: {
 ```javascript
 {
   id: "d33d33",
-  message: "Content of the product updated correctly" 
+  message: "Content of the product updated correctly"
 }
 ```
 
-### Export 
-
+### Export
 
 ```bash
 /GET "[domain-name]/api/v1/productExport",
@@ -256,6 +257,7 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
   categoria: Categoria
 }
 ```
+
 ### Eliminar producto por su Id
 
 ```bash
@@ -291,7 +293,7 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 
 ```javascript
 {
-  descripcion: "nueva descripcion Y"
+  descripcion: "nueva descripcion Y";
 }
 ```
 
@@ -304,9 +306,10 @@ El nombre_corto no se puede repetir ya que es unico, ningun dato puede estar vac
 ```javascript
 {
   id: "d33d33",
-  message: "Content of the categoria updated correctly" 
+  message: "Content of the categoria updated correctly"
 }
 ```
+
 ### Logear Usuarios
 
 #### Body format

@@ -21,7 +21,9 @@ export class ErrorHandler {
     if (err instanceof ExtendableError) {
       return res?.status(err.statusCode).send(err.message);
     }
-    return res?.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).send(err.message);
+    return res
+      ?.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR)
+      .send(err.message);
   };
 
   public NOT_FOUND_ROUTE_HANDLER = (req: Request, res: Response) => {

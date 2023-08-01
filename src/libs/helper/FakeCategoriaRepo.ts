@@ -15,12 +15,16 @@ export class FakeCategoriaRepo implements CategoriaRepository {
   update = jest
     .fn()
     .mockImplementation(
-      (id: string, dataToUpdate: Partial<CategoriaProps>): Promise<Categoria> => {
+      (
+        id: string,
+        dataToUpdate: Partial<CategoriaProps>
+      ): Promise<Categoria> => {
         const categoria = _fakedb.find((s) => s.id === id);
         if (!categoria) throw new Error("not found");
         const data = {
           id: categoria.id,
-          nombre_categoria: dataToUpdate.nombre_categoria || categoria.nombre_categoria,
+          nombre_categoria:
+            dataToUpdate.nombre_categoria || categoria.nombre_categoria,
         };
         _fakedb = _fakedb.map((s) =>
           s.id === id ? categoria.updateProp(dataToUpdate) : s
@@ -30,14 +34,19 @@ export class FakeCategoriaRepo implements CategoriaRepository {
       }
     );
 
-	find = jest.fn().mockImplementation(
-						(props: Record<string | number, any>) => {
-							return _fakedb.filter(d => {
-								console.log(Object.entries(d.getProps()).some(([key, value]) => props[key] === value ) )
+  find = jest.fn().mockImplementation((props: Record<string | number, any>) => {
+    return _fakedb.filter((d) => {
+      console.log(
+        Object.entries(d.getProps()).some(
+          ([key, value]) => props[key] === value
+        )
+      );
 
-								return Object.entries(d.getProps()).some(([key, value]) => props[key] === value )
-						})
-					})
+      return Object.entries(d.getProps()).some(
+        ([key, value]) => props[key] === value
+      );
+    });
+  });
 
   findById = jest.fn().mockImplementation((id: string): Promise<Categoria> => {
     const categoria = _fakedb.find((s) => s.id === id);
@@ -56,5 +65,5 @@ export class FakeCategoriaRepo implements CategoriaRepository {
       return Promise.resolve(false);
     }
     return Promise.resolve(true);
-  })
+  });
 }

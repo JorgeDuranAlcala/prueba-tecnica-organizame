@@ -15,52 +15,51 @@ import { Categoria } from "../../src/domain/Categoria";
 describe("Product service", () => {
   let productService: IProductService;
   let _fakeProductRepository: ProductRepository;
-	let _fakeCategoriaRepository: CategoriaRepository;
+  let _fakeCategoriaRepository: CategoriaRepository;
   let product_id: string;
-	let data: CreateProductDto
-	let created_product: Product
+  let data: CreateProductDto;
+  let created_product: Product;
   let categoriaId: string;
   let categoriaService: ICategoriaService;
 
   beforeEach(async () => {
     _fakeProductRepository = new FakeProductRepo();
-	 _fakeCategoriaRepository = new FakeCategoriaRepo();
+    _fakeCategoriaRepository = new FakeCategoriaRepo();
     categoriaService = CategoriaService.create(_fakeCategoriaRepository);
 
     productService = ProductService.create(
-			_fakeProductRepository,
-			_fakeCategoriaRepository
-		);
-	const dataCate: CreateCategoriaDto = {
-				nombre_corto: "A",
-        descripcion: "desc categoria A",
-				nombre_categoria: "A"
+      _fakeProductRepository,
+      _fakeCategoriaRepository
+    );
+    const dataCate: CreateCategoriaDto = {
+      nombre_corto: "A",
+      descripcion: "desc categoria A",
+      nombre_categoria: "A",
     };
     const cate_dto = CreateCategoriaDto.create(dataCate);
-    const created_categoria: Categoria = await categoriaService.createCategoria(cate_dto);
+    const created_categoria: Categoria = await categoriaService.createCategoria(
+      cate_dto
+    );
 
-			categoriaId = created_categoria.id 
+    categoriaId = created_categoria.id;
 
-
-   data = {
-        nombre_producto: "product A",
-        descripcion: "desc product A",
-				precio: 44.44,
-				categoria: categoriaId,
-				sku: "GRAL"
-      };
+    data = {
+      nombre_producto: "product A",
+      descripcion: "desc product A",
+      precio: 44.44,
+      categoria: categoriaId,
+      sku: "GRAL",
+    };
     const dto = CreateProductDto.create(data);
 
     created_product = await productService.createProduct(dto);
     product_id = created_product.id;
-		
-
   });
 
   afterEach(async () => {
     //jest.clearAllMocks();
     await productService.remove(product_id);
-		await categoriaService.remove(categoriaId)
+    await categoriaService.remove(categoriaId);
   });
 
   test("create a new product", async () => {
@@ -68,25 +67,24 @@ describe("Product service", () => {
     expect(_fakeProductRepository.create).toHaveBeenCalledTimes(1);
     expect(created_product.nombre_producto).toEqual(data.nombre_producto);
     expect(created_product.descripcion).toEqual(data.descripcion);
-		expect(created_product.sku.length).toBeLessThanOrEqual(5)
-		expect(created_product.categoria).toEqual(categoriaId)
+    expect(created_product.sku.length).toBeLessThanOrEqual(5);
+    expect(created_product.categoria).toEqual(categoriaId);
   });
 
   test("Should not create product if the category does not exist yet.", async () => {
     try {
-			  const wrongId = "2";
+      const wrongId = "2";
 
-			  const productData = {
-					nombre_producto: "product A",
-					descripcion: "desc product A",
-					precio: 44.44,
-					categoria: wrongId,
-					sku: "GRAL"
-				};
+      const productData = {
+        nombre_producto: "product A",
+        descripcion: "desc product A",
+        precio: 44.44,
+        categoria: wrongId,
+        sku: "GRAL",
+      };
 
-			const dto = CreateProductDto.create(productData);
-			await productService.createProduct(dto);
-
+      const dto = CreateProductDto.create(productData);
+      await productService.createProduct(dto);
     } catch (error) {
       if (!(error instanceof Error)) return;
       expect(_fakeCategoriaRepository.findById).toThrow();
@@ -95,25 +93,24 @@ describe("Product service", () => {
     }
   });
 
-
   test("find a product by name", async () => {
-		const params = { 
-			nombre_producto: created_product.nombre_producto  
-		}
+    const params = {
+      nombre_producto: created_product.nombre_producto,
+    };
     const product: Product[] = await productService.find(params);
     expect(product).toBeDefined();
-		expect(product).toContain(created_product)
+    expect(product).toContain(created_product);
     expect(_fakeProductRepository.findAll).toHaveBeenCalled();
   });
 
-	test("Search for a product that does not exist", async () => {
-		const params = { 
-			nombre_producto: "product-abgdh2"  
-		}
+  test("Search for a product that does not exist", async () => {
+    const params = {
+      nombre_producto: "product-abgdh2",
+    };
     const product: Product[] = await productService.find(params);
     expect(product).toBeDefined();
-		expect(product).not.toContain(created_product)
-		expect(product.length).toEqual(0)
+    expect(product).not.toContain(created_product);
+    expect(product.length).toEqual(0);
     expect(_fakeProductRepository.findAll).toHaveBeenCalled();
   });
 
@@ -140,7 +137,7 @@ describe("Product service", () => {
   test("Remove a product by its ID", async () => {
     const result = await productService.remove(product_id);
     expect(result).toBeDefined();
-		expect(result).toBeTruthy()
+    expect(result).toBeTruthy();
     expect(_fakeProductRepository.remove).toHaveBeenCalled();
     expect(_fakeProductRepository.remove).toHaveBeenCalledTimes(1);
     expect(_fakeProductRepository.remove).toHaveBeenCalledWith(product_id);
@@ -168,7 +165,9 @@ describe("Product service", () => {
       updateDto
     );
     expect(product).toBeDefined();
-    expect(product.nombre_producto.length).toEqual(dataUpdateDto.nombre_producto.length);
+    expect(product.nombre_producto.length).toEqual(
+      dataUpdateDto.nombre_producto.length
+    );
     expect(product.nombre_producto).toContain(dataUpdateDto.nombre_producto);
     expect(_fakeProductRepository.update).toHaveBeenCalled();
     expect(_fakeProductRepository.update).toHaveBeenCalledTimes(1);
@@ -179,9 +178,9 @@ describe("Product service", () => {
   });
   test("updateProduct should throw an error when product does not exist", async () => {
     try {
-			 const dataUpdateDto = {
-            nombre_producto: "some text 1",
-       };
+      const dataUpdateDto = {
+        nombre_producto: "some text 1",
+      };
       const wrongId = "123";
       const updateDto = UpdateProductDto.create(dataUpdateDto);
       await productService.updateProduct(wrongId, updateDto);
@@ -193,41 +192,41 @@ describe("Product service", () => {
     }
   });
 
-    test("should retrieve all the products", async () => {
-      const products = await productService.getAllProducts();
-      expect(products).toBeDefined();
-			expect(products).toHaveLength(1)
-      expect(_fakeProductRepository.findAll).toHaveBeenCalled();
-    });
+  test("should retrieve all the products", async () => {
+    const products = await productService.getAllProducts();
+    expect(products).toBeDefined();
+    expect(products).toHaveLength(1);
+    expect(_fakeProductRepository.findAll).toHaveBeenCalled();
+  });
 
-    test("should search for the products that have a 'p' letter in their name or descripcion", async () => {
-			const query = "p"
-      const products: Product[] = await productService.search(query);
-      expect(products).toBeDefined();
-			expect(products).toHaveLength(1)
-      expect(_fakeProductRepository.findAll).toHaveBeenCalled();
-    });
-    test("should return empty array if there is no match in their name or descripcion", async () => {
-			const query = "z"
-      const products: Product[] = await productService.search(query);
-      expect(products).toBeDefined();
-			expect(products).toHaveLength(0)
-      expect(_fakeProductRepository.findAll).toHaveBeenCalled();
-    });
+  test("should search for the products that have a 'p' letter in their name or descripcion", async () => {
+    const query = "p";
+    const products: Product[] = await productService.search(query);
+    expect(products).toBeDefined();
+    expect(products).toHaveLength(1);
+    expect(_fakeProductRepository.findAll).toHaveBeenCalled();
+  });
+  test("should return empty array if there is no match in their name or descripcion", async () => {
+    const query = "z";
+    const products: Product[] = await productService.search(query);
+    expect(products).toBeDefined();
+    expect(products).toHaveLength(0);
+    expect(_fakeProductRepository.findAll).toHaveBeenCalled();
+  });
 
-    test("should return an array representing the union of the entities Product and Categoria", async () => {
-      const products = await productService.getAllProducts({ full: true  });
-      expect(products).toBeDefined();
-			expect(products.length).toBeGreaterThanOrEqual(0)
-			products.forEach((p: Record<string | number, any>) => {
-				expect(p.sku).toBeDefined();
-				expect(p.nombre_producto).toBeDefined();
-				expect(p.descripcion_producto).toBeDefined();
-				expect(p.precio).toBeDefined();
-				expect(p.nombre_corto_categoria).toBeDefined();
-				expect(p.nombre_categoria).toBeDefined();
-				expect(p.descripcion_categoria).toBeDefined();
-			})
-      expect(_fakeProductRepository.findAll).toHaveBeenCalled();
+  test("should return an array representing the union of the entities Product and Categoria", async () => {
+    const products = await productService.getAllProducts({ full: true });
+    expect(products).toBeDefined();
+    expect(products.length).toBeGreaterThanOrEqual(0);
+    products.forEach((p: Record<string | number, any>) => {
+      expect(p.sku).toBeDefined();
+      expect(p.nombre_producto).toBeDefined();
+      expect(p.descripcion_producto).toBeDefined();
+      expect(p.precio).toBeDefined();
+      expect(p.nombre_corto_categoria).toBeDefined();
+      expect(p.nombre_categoria).toBeDefined();
+      expect(p.descripcion_categoria).toBeDefined();
     });
+    expect(_fakeProductRepository.findAll).toHaveBeenCalled();
+  });
 });

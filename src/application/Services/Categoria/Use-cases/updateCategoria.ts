@@ -1,6 +1,6 @@
-import { UpdateCategoriaDto  } from "@src/domain/Categoria/dtos/updateCategoriaDTO"
+import { UpdateCategoriaDto } from "@src/domain/Categoria/dtos/updateCategoriaDTO";
 import { CategoriaRepository } from "@src/infrastructure/categoriaRepository/ICategoriaRepo";
-import { CategoriaNotFound  } from "@src/libs/Error/categoria-not-found"
+import { CategoriaNotFound } from "@src/libs/Error/categoria-not-found";
 import { Categoria } from "@src/domain/Categoria";
 export class UpdateCategoriaUseCase {
   private readonly _categoriaRepository: CategoriaRepository;
@@ -15,8 +15,7 @@ export class UpdateCategoriaUseCase {
 
   async update(id: string, updateDto: UpdateCategoriaDto): Promise<Categoria> {
     const cate = await this._categoriaRepository.update(id, updateDto);
-		if (!cate) throw new CategoriaNotFound(id);
+    if (!cate) throw new CategoriaNotFound(id);
     return cate;
   }
-
 }

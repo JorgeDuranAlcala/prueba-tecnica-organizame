@@ -1,5 +1,5 @@
 import { inMemoryProductRepo } from "@src/infrastructure/productRepository";
-import { inMemoryCategoriaRepo  } from "@src/infrastructure/categoriaRepository"
+import { inMemoryCategoriaRepo } from "@src/infrastructure/categoriaRepository";
 import { ProductService } from "./product-service";
 
 const repo = inMemoryProductRepo;

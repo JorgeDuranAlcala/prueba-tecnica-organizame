@@ -12,13 +12,12 @@ export class FindCategoriaUseCase {
     return new FindCategoriaUseCase(_categoriaRepository);
   }
 
-	async find(
-   	props: Record<string | number, any>
-	): Promise<Categoria[]> {
-		const cate = (await this._categoriaRepository.findAll()).filter(x => {
-			return Object.entries(x.getProps()).some(([key, value]) => props[key] === value)
-		})
+  async find(props: Record<string | number, any>): Promise<Categoria[]> {
+    const cate = (await this._categoriaRepository.findAll()).filter((x) => {
+      return Object.entries(x.getProps()).some(
+        ([key, value]) => props[key] === value
+      );
+    });
     return cate;
   }
-
 }

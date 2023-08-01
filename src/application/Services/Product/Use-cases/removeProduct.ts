@@ -12,9 +12,7 @@ export class RemoveProductUseCase {
     return new RemoveProductUseCase(_productRepository);
   }
 
-  async remove(
-    id: string
-  ): Promise<boolean> {
+  async remove(id: string): Promise<boolean> {
     const result = await this._productRepository.remove(id);
     if (!result) throw new ProductNotFound(id);
     return result;

@@ -1,4 +1,3 @@
-
 import { HTTP_STATUS_CODE } from "@src/constants/http";
 import { ExtendableError } from ".";
 
@@ -9,7 +8,9 @@ export class RepeatedNombreCortoError extends ExtendableError {
     statusCode: number = HTTP_STATUS_CODE.ALREADY_EXISTS
   ) {
     super(
-      !descriptor ? `That nombre_corto with value ${value} already exists` : descriptor,
+      !descriptor
+        ? `That nombre_corto with value ${value} already exists`
+        : descriptor,
       statusCode
     );
   }

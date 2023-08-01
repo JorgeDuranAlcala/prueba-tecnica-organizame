@@ -10,9 +10,7 @@ export class User extends Entity<UserProps> {
     super({ ...props }, !id ? IDgenerator.gen() : id);
   }
 
-  static create(
-    { id, ...props }: UserProps
-  ): User {
+  static create({ id, ...props }: UserProps): User {
     const instance = new User({ ...props }, id);
     return instance;
   }
@@ -29,13 +27,11 @@ export class User extends Entity<UserProps> {
     return this.props.password;
   }
 
-	public get role(): UserRoles {
-		return this.props.role;
-	}
+  public get role(): UserRoles {
+    return this.props.role;
+  }
 
-
-	public getProps(): UserProps {
-		return this.props
-	}
-
+  public getProps(): UserProps {
+    return this.props;
+  }
 }

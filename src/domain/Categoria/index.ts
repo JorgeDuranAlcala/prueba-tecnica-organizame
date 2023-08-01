@@ -10,9 +10,7 @@ export class Categoria extends Entity<CategoriaProps> {
     super({ ...props }, !id ? IDgenerator.gen() : id);
   }
 
-  static create(
-    { id, ...props }: CategoriaProps
-  ): Categoria {
+  static create({ id, ...props }: CategoriaProps): Categoria {
     const instance = new Categoria({ ...props }, id);
     return instance;
   }
@@ -33,8 +31,7 @@ export class Categoria extends Entity<CategoriaProps> {
     return this.props.nombre_categoria;
   }
 
-	public getProps(): CategoriaProps {
-		return this.props
-	}
-
+  public getProps(): CategoriaProps {
+    return this.props;
+  }
 }

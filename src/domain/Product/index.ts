@@ -10,9 +10,7 @@ export class Product extends Entity<ProductProps> {
     super({ ...props }, !id ? IDgenerator.gen() : id);
   }
 
-  static create(
-    { id, ...props }: ProductProps
-  ): Product {
+  static create({ id, ...props }: ProductProps): Product {
     const instance = new Product({ ...props }, id);
     return instance;
   }
@@ -29,7 +27,7 @@ export class Product extends Entity<ProductProps> {
     return this.props.descripcion;
   }
 
-	public get sku(): string {
+  public get sku(): string {
     return this.props.sku;
   }
 
@@ -37,12 +35,11 @@ export class Product extends Entity<ProductProps> {
     return this.props.precio;
   }
 
-	public get categoria(): string {
-		return this.props.categoria;
-	}
+  public get categoria(): string {
+    return this.props.categoria;
+  }
 
-	public getProps(): ProductProps {
-		return this.props
-	}
-
+  public getProps(): ProductProps {
+    return this.props;
+  }
 }

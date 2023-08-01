@@ -16,5 +16,4 @@ export class GetAllCategoriasUseCase {
     const cate = await this._categoriaRepository.findAll();
     return cate;
   }
-
 }

@@ -14,11 +14,11 @@ export class SearchProductsUseCase {
 
   async search(query: string): Promise<Product[]> {
     const products = await this._productRepository.findAll();
-		query = query.toLowerCase()
-		return products					
-					.filter(p => (
-								p.nombre_producto.toLowerCase().includes(query) || p.descripcion.toLowerCase().includes(query)
-					)
-				)	
+    query = query.toLowerCase();
+    return products.filter(
+      (p) =>
+        p.nombre_producto.toLowerCase().includes(query) ||
+        p.descripcion.toLowerCase().includes(query)
+    );
   }
 }

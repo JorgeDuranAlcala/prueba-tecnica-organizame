@@ -12,12 +12,13 @@ export class FakeProductRepo implements ProductRepository {
       return Promise.resolve(product);
     });
 
-	find = jest.fn().mockImplementation(
-						(props: Record<string | number, any>) => {
-							return _fakedb.filter(d => {
-								return Object.entries(d.getProps()).some(([key, value]) => props[key] === value )
-							})
-					})
+  find = jest.fn().mockImplementation((props: Record<string | number, any>) => {
+    return _fakedb.filter((d) => {
+      return Object.entries(d.getProps()).some(
+        ([key, value]) => props[key] === value
+      );
+    });
+  });
 
   update = jest
     .fn()
@@ -27,7 +28,8 @@ export class FakeProductRepo implements ProductRepository {
         if (!product) throw new Error("not found");
         const data = {
           id: product.id,
-          nombre_producto: dataToUpdate.nombre_producto || product.nombre_producto,
+          nombre_producto:
+            dataToUpdate.nombre_producto || product.nombre_producto,
         };
         _fakedb = _fakedb.map((s) =>
           s.id === id ? product.updateProp(dataToUpdate) : s
@@ -47,12 +49,12 @@ export class FakeProductRepo implements ProductRepository {
     return Promise.resolve(_fakedb);
   });
 
-  remove = jest.fn().mockImplementation( (id: string): Promise<boolean> => {
+  remove = jest.fn().mockImplementation((id: string): Promise<boolean> => {
     const productIndex = _fakedb.findIndex((s) => s.id === id);
     _fakedb.splice(productIndex, 1);
     if (_fakedb.findIndex((s) => s.id === id) !== -1) {
       return Promise.resolve(false);
     }
     return Promise.resolve(true);
-  })
+  });
 }

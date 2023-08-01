@@ -1,3 +1,3 @@
 export interface IUDgenerator {
-    gen(): string
+  gen(): string;
 }
