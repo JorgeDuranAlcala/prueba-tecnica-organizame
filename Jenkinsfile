@@ -2,7 +2,7 @@ pipeline {
 
   agent { label 'Agent-1' }
 
-  tools { nodejs 'Nodejs 18.12.1' }
+  tools { nodejs 'Nodejs' }
 
   stages {
     stage('Install dependecies') {
